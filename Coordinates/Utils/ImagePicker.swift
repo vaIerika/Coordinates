@@ -43,7 +43,6 @@ extension ImagePicker: UIViewControllerRepresentable {
         return picker
     }
 
-
     /// Updates the presented `UIViewController` (and coordinator) to the latest
     /// configuration.
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: Self.Context) {
@@ -63,7 +62,7 @@ extension ImagePicker: UIViewControllerRepresentable {
             self.parent = parent
         }
 
-        // UIImagePickerControllerDelegate
+        /// UIImagePickerControllerDelegate
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             
             if let uiImage = info[.originalImage] as? UIImage {
@@ -73,9 +72,8 @@ extension ImagePicker: UIViewControllerRepresentable {
             parent.presentationMode.wrappedValue.dismiss()
         }
 
-        // UIImage does not handle orientation in a way that is suitable
-        // for using in an Image. Force writing the image correctly oriented.
-        // More info here: https://stackoverflow.com/questions/8915630
+        /// UIImage does not handle orientation in a way that is suitable for using in an Image.
+        /// Force writing the image correctly oriented.
         private func fixImageOrientation(for image: UIImage) -> UIImage {
             UIGraphicsBeginImageContext(image.size)
             image.draw(at: .zero)

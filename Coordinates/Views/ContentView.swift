@@ -10,9 +10,11 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
-    @FetchRequest(entity: Place.entity(), sortDescriptors: [
-        NSSortDescriptor(keyPath: \Place.title, ascending: true),
-        NSSortDescriptor(keyPath: \Place.subtitle, ascending: true)
+    @FetchRequest(
+        entity: Place.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \Place.title, ascending: true),
+            NSSortDescriptor(keyPath: \Place.subtitle, ascending: true)
         ]) var places: FetchedResults<Place>
     
     @State private var showingMap = true
@@ -21,7 +23,7 @@ struct ContentView: View {
         NavigationView {
             ZStack {
                 if showingMap {
-                    MapView().environment(\.managedObjectContext, self.moc)
+                    MapView().environment(\.managedObjectContext, moc)
                 } else {
                     List {
                         ForEach(places, id: \.self) { place in
@@ -36,9 +38,9 @@ struct ContentView: View {
             .navigationBarItems(
                 leading: EditButton().opacity(showingMap ? 0 : 1),
                 trailing:  Button(action: {
-                    self.showingMap.toggle()
+                    showingMap.toggle()
                 }) {
-                    Image(systemName: self.showingMap ? "list.bullet" : "mappin.and.ellipse")
+                    Image(systemName: showingMap ? "list.bullet" : "mappin.and.ellipse")
                         .frame(width: 40, height: 40)
                 }
             )
@@ -47,12 +49,7 @@ struct ContentView: View {
        .onAppear(perform: createExampleData)
     }
     
-    init() {
-         // To remove all separators
-        UITableView.appearance().separatorStyle = .none
-    }
-    
-    func deletePlaces(at offsets: IndexSet) {
+    private func deletePlaces(at offsets: IndexSet) {
         for offset in offsets {
             let place = places[offset]
             moc.delete(place)
@@ -60,8 +57,8 @@ struct ContentView: View {
         try? moc.save()
     }
     
-    // Example data for testing
-    func createExampleData() {
+    // MARK: - Default data for testing
+    private func createExampleData() {
         if places.isEmpty {
             let bratislava = Place(context: self.moc)
             bratislava.id = UUID()

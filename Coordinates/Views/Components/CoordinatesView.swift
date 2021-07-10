@@ -15,16 +15,8 @@ struct CoordinatesView: View {
         HStack(spacing: 0) {
             Image("pin")
                 .padding(.trailing, 10)
-            if latitude >= 0 {
-                Text("\(Int(latitude))° N, ")
-            } else {
-                Text("\(Int(latitude))° S, ")
-            }
-            if longitude >= 0 {
-                Text("\(Int(longitude))° E")
-            } else {
-                Text("\(Int(longitude))° W")
-            }
+            Text("\(Int(latitude))° \(latitude >= 0 ? "N, " : "S, ")")
+            Text("\(Int(longitude))° \(longitude >= 0 ? " E" : " W")")
         }
         .font(.footnote)
         .foregroundColor(.gray)

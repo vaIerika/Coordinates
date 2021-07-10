@@ -27,7 +27,7 @@ extension MKPointAnnotation: ObservableObject {
     }
 }
 
-// For preview
+// MARK: - For preview
 extension MKPointAnnotation {
     static var example: MKPointAnnotation {
         let annotation = MKPointAnnotation()

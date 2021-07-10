@@ -14,9 +14,9 @@ struct DetailsView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            ScrollView(.vertical) {
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack {
-                    self.place.image
+                    place.image
                         .resizable()
                         .scaledToFill()
                         .frame(width: geometry.size.width, height: 510)
@@ -24,27 +24,26 @@ struct DetailsView: View {
                         .edgesIgnoringSafeArea(.all)
                         .padding(.bottom, 32)
                         .onTapGesture {
-                            self.presentationMode.wrappedValue.dismiss()
+                            presentationMode.wrappedValue.dismiss()
                         }
                     
                     VStack(alignment: .leading, spacing: 10) {
                         HStack {
-                            CoordinatesView(latitude: self.place.latitude, longitude: self.place.longitude)
+                            CoordinatesView(latitude: place.latitude, longitude: place.longitude)
                             Spacer()
                         }
                         
-                        Text(self.place.wrappedTitle)
+                        Text(place.wrappedTitle)
                             .font(.largeTitle)
                             .padding(.bottom, 15)
-                        Text(self.place.wrappedSubtitle.uppercased())
+                        Text(place.wrappedSubtitle.uppercased())
                             .font(.footnote)
                             .bold()
-                            .fixedSize(horizontal: false, vertical: true)
-                        Text(self.place.details ?? "")
+                        Text(place.details ?? "")
                             .font(.callout)
-                            .opacity(0.7)
-                            .fixedSize(horizontal: false, vertical: true)
+                            .opacity(0.7)                            
                     }
+                    .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal, 25)
                     .padding(.bottom, 60)
                 }
@@ -55,7 +54,6 @@ struct DetailsView: View {
             .edgesIgnoringSafeArea(.top)
         }
     }
-    
 }
 
 struct DetailsView_Previews: PreviewProvider {

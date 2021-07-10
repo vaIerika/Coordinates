@@ -10,7 +10,6 @@ import UIKit
 import SwiftUI
 
 struct SelectableText: UIViewRepresentable {
-
     private var text: String
     private var secondary: Bool
     private var selectable: Bool
@@ -91,17 +90,14 @@ class CustomUITextField: UITextField, UITextFieldDelegate {
         return super.canPerformAction(action, withSender: sender)
     }
 
-
     // UITextFieldDelegate methods
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        
-        // update the text of the binding
+        /// update the text of the binding
         self._textBinding.wrappedValue = textField.text ?? ""
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        // Allow changing the text depending on `self._isEditable`
+        /// allow changing the text depending on `self._isEditable`
         return self._isEditable
     }
 

@@ -1,14 +1,13 @@
 //
-//  ViewExtension.swift
+//  View+navigate.swift
 //  Coordinates
 //
 //  Created by Valerie 👩🏼‍💻 on 01/05/2020.
 //
 
-import Foundation
 import SwiftUI
 
-// Navigate to a new view when a certain 'binding' condition is true
+// Navigate to a new view when a certain 'Binding' condition is true
 extension View {
     func navigate<SomeView: View>(to view: SomeView, when binding: Binding<Bool>) -> some View {
         modifier(NavigateModifier(destination: view, binding: binding))

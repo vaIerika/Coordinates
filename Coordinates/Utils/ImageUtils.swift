@@ -8,7 +8,6 @@
 import Foundation
 
 struct ImageUtils {
-
     func setImage(image: Data) -> String? {
         let url = getDocumentDirectory().appendingPathComponent(UUID().uuidString)
 

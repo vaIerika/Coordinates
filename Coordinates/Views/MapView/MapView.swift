@@ -13,7 +13,7 @@ struct MapView: View {
     @FetchRequest(entity: Place.entity(), sortDescriptors: []) var places: FetchedResults<Place>
     
     @State private var centerCoordinate = CLLocationCoordinate2D()
-    @State var locations = [MKPointAnnotation]()
+    @State private var locations = [MKPointAnnotation]()
     @State private var selectedPlace: MKPointAnnotation?
     @State private var showingAddPlaceView = false
     @State private var showingPlaceDetails = false
@@ -35,11 +35,7 @@ struct MapView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        let newLocation = MKPointAnnotation()
-                        newLocation.coordinate = self.centerCoordinate
-                        self.locations.append(newLocation)
-                        self.selectedPlace = newLocation
-                        self.showingAddPlaceView = true
+                        addNewLocation()
                     }) {
                         Image(systemName: "plus")
                             .padding()
@@ -60,11 +56,19 @@ struct MapView: View {
             }
         }
             
-        // func navigate - an extension to the View, replace usage of 2nd .sheet()
+        /// func navigate - an extension to the View, replace usage of 2nd .sheet()
         .navigate(to: AddPlaceView(placemark: self.selectedPlace ?? MKPointAnnotation.example), when: $showingAddPlaceView)
     }
     
-    func getAnnotations() {
+    private func addNewLocation() {
+        let newLocation = MKPointAnnotation()
+        newLocation.coordinate = centerCoordinate
+        locations.append(newLocation)
+        selectedPlace = newLocation
+        showingAddPlaceView = true
+    }
+    
+    private func getAnnotations() {
         for place in places {
             let annotation = MKPointAnnotation()
             annotation.title = place.title
@@ -74,7 +78,7 @@ struct MapView: View {
         }
     }
     
-    func getData(for annotation: MKPointAnnotation) -> Place {
+    private func getData(for annotation: MKPointAnnotation) -> Place {
         if let index = places.firstIndex(where: { place in
             place.latitude == annotation.coordinate.latitude &&
                 place.longitude == annotation.coordinate.longitude

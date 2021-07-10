@@ -12,19 +12,20 @@ import SwiftUI
 struct MultilineTextField: View {
     private var placeholder: String
     private var onCommit: (() -> Void)?
-    @State private var viewHeight: CGFloat = 20
-    @State private var shouldShowPlaceholder = false
     @Binding private var text: String
     
+    @State private var viewHeight: CGFloat = 20
+    @State private var shouldShowPlaceholder = false
+    
     private var internalText: Binding<String> {
-        Binding<String>(get: { self.text } ) {
-            self.text = $0
-            self.shouldShowPlaceholder = $0.isEmpty
+        Binding<String>(get: { text } ) {
+            text = $0
+            shouldShowPlaceholder = $0.isEmpty
         }
     }
     
     var body: some View {
-        UITextViewWrapper(text: self.internalText, calculatedHeight: $viewHeight, onDone: onCommit)
+        UITextViewWrapper(text: internalText, calculatedHeight: $viewHeight, onDone: onCommit)
             .frame(minHeight: viewHeight, maxHeight: viewHeight)
             .background(placeholderView, alignment: .topLeading)
             .padding(.vertical, 5)
@@ -50,7 +51,7 @@ struct MultilineTextField: View {
         }
     }
     
-    init (_ placeholder: String = "", text: Binding<String>, onCommit: (() -> Void)? = nil) {
+    init(_ placeholder: String = "", text: Binding<String>, onCommit: (() -> Void)? = nil) {
         self.placeholder = placeholder
         self.onCommit = onCommit
         self._text = text
