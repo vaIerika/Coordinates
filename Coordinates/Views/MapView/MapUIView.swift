@@ -14,7 +14,6 @@ struct MapUIView: UIViewRepresentable {
     
     @Binding var centerCoordinate: CLLocationCoordinate2D
     @Binding var selectedPlace: MKPointAnnotation?
-    @Binding var showingPlaceDetails: Bool
     var annotations: [MKPointAnnotation]
     
     func makeUIView(context: Context) -> MKMapView {
@@ -62,16 +61,14 @@ struct MapUIView: UIViewRepresentable {
         }
         
         func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-            
             guard let placemark = view.annotation as? MKPointAnnotation else { return }
             parent.selectedPlace = placemark
-            parent.showingPlaceDetails = true
         }
     }
 }
     
 struct MapUIView_Previews: PreviewProvider {
     static var previews: some View {
-        MapUIView(centerCoordinate: .constant(MKPointAnnotation.example.coordinate), selectedPlace: .constant(MKPointAnnotation.example), showingPlaceDetails: .constant(false), annotations: [MKPointAnnotation.example])
+        MapUIView(centerCoordinate: .constant(MKPointAnnotation.example.coordinate), selectedPlace: .constant(MKPointAnnotation.example), annotations: [MKPointAnnotation.example])
     }
 }

@@ -141,7 +141,6 @@
 			children = (
 				AF34B6CF2459C6700085ED57 /* MapView.swift */,
 				AF34B6C92459BFA80085ED57 /* MapUIView.swift */,
-				AF34B6C72459BF5C0085ED57 /* MKPointAnnotationExtenssion.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -180,6 +179,7 @@
 		AF61760B245C72CC00217A20 /* Extenssions */ = {
 			isa = PBXGroup;
 			children = (
+				AF34B6C72459BF5C0085ED57 /* MKPointAnnotationExtenssion.swift */,
 				AF61760C245C72E000217A20 /* View+navigate.swift */,
 			);
 			path = Extenssions;

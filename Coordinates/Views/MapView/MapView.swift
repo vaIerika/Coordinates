@@ -15,14 +15,12 @@ struct MapView: View {
     @State private var centerCoordinate = CLLocationCoordinate2D()
     @State private var locations = [MKPointAnnotation]()
     @State private var selectedPlace: MKPointAnnotation?
+    @State private var newAnnotationToAdd: MKPointAnnotation = MKPointAnnotation()
     @State private var showingAddPlaceView = false
-    @State private var showingPlaceDetails = false
-    @State private var showingPlaceDetailsView = false
-    
     
     var body: some View {
         ZStack {
-            MapUIView(centerCoordinate: $centerCoordinate, selectedPlace: $selectedPlace, showingPlaceDetails: $showingPlaceDetails, annotations: locations)
+            MapUIView(centerCoordinate: $centerCoordinate, selectedPlace: $selectedPlace, annotations: locations)
                 .edgesIgnoringSafeArea(.all)
             
             Circle()
@@ -35,7 +33,9 @@ struct MapView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        addNewLocation()
+                        newAnnotationToAdd = MKPointAnnotation()
+                        newAnnotationToAdd.coordinate = centerCoordinate
+                        showingAddPlaceView = true
                     }) {
                         Image(systemName: "plus")
                             .padding()
@@ -50,22 +50,12 @@ struct MapView: View {
         }
         .labelsHidden()
         .onAppear(perform: getAnnotations)
-        .sheet(isPresented: $showingPlaceDetails) {
-            if self.selectedPlace != nil {
-                DetailsView(place: self.getData(for: self.selectedPlace!))
-            }
+        .sheet(item: $selectedPlace) { place in
+            DetailsView(place: getData(for: place))
         }
             
         /// func navigate - an extension to the View, replace usage of 2nd .sheet()
-        .navigate(to: AddPlaceView(placemark: self.selectedPlace ?? MKPointAnnotation.example), when: $showingAddPlaceView)
-    }
-    
-    private func addNewLocation() {
-        let newLocation = MKPointAnnotation()
-        newLocation.coordinate = centerCoordinate
-        locations.append(newLocation)
-        selectedPlace = newLocation
-        showingAddPlaceView = true
+        .navigate(to: AddPlaceView(placemark: $newAnnotationToAdd), when: $showingAddPlaceView)
     }
     
     private func getAnnotations() {

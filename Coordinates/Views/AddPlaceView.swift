@@ -13,7 +13,7 @@ struct AddPlaceView: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Place.entity(), sortDescriptors: []) var places: FetchedResults<Place>
     
-    @ObservedObject var placemark: MKPointAnnotation
+    @Binding var placemark: MKPointAnnotation
     
     @State private var image = Image("default")
     @State private var imageSourceType: ImageSourceType = .library
@@ -35,11 +35,13 @@ struct AddPlaceView: View {
                 
                 VStack(alignment: .leading) {
                     HStack {
-                        Button("Dismiss") { presentationMode.wrappedValue.dismiss() }
+                        Button("Dismiss") {
+                            presentationMode.wrappedValue.dismiss()
+                        }
                             .foregroundColor(.red)
                         Spacer()
                         Button("Save") { addPlace() }
-                    }
+                    }.layoutPriority(3)
                     
                     HStack {
                         Text("Coordinates of the place")
@@ -105,7 +107,7 @@ struct AddPlaceView: View {
             showingErrorAlert = true
             return
         }
-        
+            
         let newPlace = Place(context: moc)
         newPlace.id = UUID()
         newPlace.title = placemark.title
@@ -122,6 +124,7 @@ struct AddPlaceView: View {
         }
         
         try? self.moc.save()
+
         presentationMode.wrappedValue.dismiss()
     }
     
@@ -148,6 +151,6 @@ struct AddPlaceView: View {
 
 struct AddPlaceView_Previews: PreviewProvider {
     static var previews: some View {
-        AddPlaceView(placemark: .example)
+        AddPlaceView(placemark: .constant(.example))
     }
 }

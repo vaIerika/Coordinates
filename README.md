@@ -1,18 +1,16 @@
 # Coordinates  <img src="Screenshots/appLogo.png" width="40px" />
-> 
+>
 > Application to collect favorite places on the map.
 >
 > Written in SwiftUI.
 
 <br/>
 
-### Fuctionality of the App
-1. Load a world map.
-2. Allow to create pins on chosen coordinates.
-3. Let user to add title, description and photo to created annotations. Photo can be made with a camera or chosen from the gallery.
-4. Allow user to see and edit a list of the saved places sorted alphabetically.
-5. Provide an additional details view for each annotation, it can be opened from the map or list view. 
-6. Save user's data in CoreData.
+### Functionality of the App
+1. Allows to create pins on chosen coordinates of the world map.
+2. Lets user to add a title, a description and a photo to created annotations Photo can be taken with the phone camera or chosen from the gallery.
+3. Allows user to see and edit a list of the saved places sorted alphabetically. Provides an additional detailed view for each annotation, it can be opened from the map or the list view.
+4. Shows places nearby when user is adding a new annotation.
 
 <br/>
 
@@ -20,31 +18,29 @@
 
 *Map View*
 
-![Map View](Screenshots/loadMapView.gif)
+![Map View](Screenshots/MapView2.gif)
 
 <br/>
 
 *Adding a new place on the map*
 
-![New Place](Screenshots/newPlace.gif)
+![New Place](Screenshots/AddingNewPlace.gif)
 
 <br/>
 
 *List of saved places*
 
-![List of places](Screenshots/listView.gif)
+![List of places](Screenshots/ListEditing.gif)
 
 <br/>
 
-### Features 
-- Usage MapKit with SwiftUI
-- Adding and saving annotations on the map
-- Usage CoreData with SwiftUI
-- Integration with Wikipedia, loading results of search in the view
-- Custom views of Text Field to display multiple lines
-- Selectable text to comfort use
-- Keyboard responder to lift up the text fields
-- Access for user to make pictures with a camera, load from gallery and save photos through the App
+### Features
+- Usage MapKit & CoreData with SwiftUI.
+- Adding and saving annotations on the map.
+- Integration with Wikipedia, loading results in a list view as a selectable text for comfortable use.
+- Custom views of Text Field to display multiple lines.
+- Keyboard responder to lift up text fields.
+- Access for user to make pictures with the camera, load from the gallery.
 
 <br/>
 
